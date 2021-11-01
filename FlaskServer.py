@@ -20,7 +20,7 @@ def data():
         coincidencias.append(re.search(expresion, i['TIEMPO']).group())
         nitEmisor = i['NIT_EMISOR']
         suma = 0
-        for j in range(len(nitEmisor)-1):
+        for j in range(len(nitEmisor)-1): 
             suma += int(nitEmisor[j])
             j += 1
         modulo11 = suma%11
