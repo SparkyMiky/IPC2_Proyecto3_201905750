@@ -11,7 +11,7 @@ def index():
 @app.route('/data', methods=['POST'])
 def data():
     json_file = request.json
-    analizador = Analizador()
+    analizador = Analizador() 
     respuesta = analizador.analizar(json_file)
 
     return jsonify({'status':200})
