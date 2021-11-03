@@ -40,7 +40,6 @@ def postDatos():
     res1 = json.loads(res)
     analizador = Analizador()
     analizador.analizar(res1['SOLICITUD_AUTORIZACION']['DTE']) 
-    #analizador.analizar(res['SOLICITUD_AUTORIZACION']['DTE'])
 
     #Escritura de archivo
     strFile = request.data.decode('utf-8')
