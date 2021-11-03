@@ -30,7 +30,7 @@ class Analizador():
             return False
     
     def getValor(self, DTE):
-        valor = round(float(DTE['VALOR'], 2))
+        valor = round(float(DTE['VALOR']),2)
         return valor
     
     def getIva(self, DTE):
@@ -71,9 +71,11 @@ class Analizador():
             listaDiaria = self.buscar(Fecha)
             if listaDiaria != None:
                 listaDiaria.agregar(DTE)
+                print('agregando a lista existente')
             else:
                 newLista = ListaDiaria(Fecha)
                 self.listaDte.append(newLista)
+                print('creando nueva lista y agregando')
 
         return None
     
