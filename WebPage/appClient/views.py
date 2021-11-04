@@ -16,8 +16,11 @@ def index(request):
         
         url = endpoint.format('/appClient')
         data = requests.get(url)
+
+        url2 = endpoint.format('/data')
+        dato = requests.get(url2)
         context = {
-            'datos' : data.text,
+            'datos' : dato.text,
             'data': data.text,
         }
         
