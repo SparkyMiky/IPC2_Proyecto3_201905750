@@ -7,25 +7,24 @@ import json
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*":{"origin":"*"}})
+datos = ''
 
 @app.route('/', methods=['GET'])
 def index():
     return Response(status=204, content_type="hola esto es una respuesta")
 
-@app.route('/data', methods=['POST'])
+@app.route('/data', methods=['GET'])
 def data():
-    json_file = request.data.decode('utf-8')
-    xml = xmltodict.parse(json_file)
-    res = json.dumps(xml)
-    print(json_file)
-    print('\n*****************************\n')
-    print(res)
-    #analizador = Analizador() 
-    #respuesta = analizador.analizar(json_file)
+    global datos
+    respuesta = datos
+    return Response(status=200,
+                    response = respuesta,
+                    content_type='text/plain')
+    
 
 @app.route('/appClient', methods=['GET'])
 def getDatos():
-    save_file = open('save_file.txt', 'r+')
+    save_file = open('autorizaciones.xml', 'r+')
     respuesta = save_file.read()
     save_file.close()
     return Response(status=200,
@@ -35,17 +34,14 @@ def getDatos():
 @app.route('/appClient', methods=['POST'])
 def postDatos():
     json_file = request.data.decode('utf-8')
+    global datos 
+    datos = json_file
     xml = xmltodict.parse(json_file)
     res = json.dumps(xml)
     res1 = json.loads(res)
     analizador = Analizador()
     analizador.analizar(res1['SOLICITUD_AUTORIZACION']['DTE']) 
-
-    #Escritura de archivo
-    strFile = request.data.decode('utf-8')
-    save_file = open('save_file.txt','w+')
-    save_file.write(strFile)
-    save_file.close()
+    analizador.crearXML()
     return Response(status=204)
 
 
